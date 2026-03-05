@@ -7,11 +7,10 @@ if [[ $SLURM_LOCALID == 0 ]]; then
     # install python-dotenv regardless
     echo "Will install python-dotenv"
     python -m pip install --upgrade pip
-    curl -LsSf https://astral.sh/uv/install.sh | sh
-    source $HOME/.local/bin/env
+    pip install -U uv
     export UV_LINK_MODE=copy
-    uv venv
-    source .venv/bin/activate
+    uv venv uv_env
+    source uv_env/bin/activate
     uv pip install -U vllm
     uv pip install qwen-vl-utils==0.0.14
     #pip install python-dotenv
