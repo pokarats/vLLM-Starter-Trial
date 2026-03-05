@@ -9,7 +9,7 @@ MEM="$2"GB
 srun -K -p $1 \
 	--container-mounts=/netscratch/pokarats:/netscratch/pokarats,/ds:/ds:ro,"$(pwd)":"$(pwd)" \
         --container-workdir="$(pwd)" \
-	--export=ALL,HF_HUB_CACHE=/netscratch/pokarats/models/llms/cache \
+	      --export=ALL,HF_HUB_CACHE=/netscratch/pokarats/models/llms/cache \
         --container-image=$IMAGE \
         --job-name=test_vllm_"$3" \
         --cpus-per-task=$NUM_CPUS \
@@ -18,4 +18,4 @@ srun -K -p $1 \
         --nodes=1 \
         --mail-type=END,FAIL \
         --mail-user=noon.pokaratsiri@dfki.de \
-python src/offline_visionExample.py
+srun/install_uv_vllm.sh python src/offline_visionExample.py
