@@ -1,7 +1,7 @@
 import PIL
 from vllm import LLM, SamplingParams
 
-data = PIL.Image.open("../data/example.jpg")
+data = PIL.Image.open("data/example.jpg")
 model_name = "Qwen/Qwen2-VL-7B-Instruct"
 
 llm = LLM(
