@@ -85,6 +85,7 @@ if __name__ == '__main__':
     processor = AutoProcessor.from_pretrained(checkpoint_path)
     inputs = [prepare_inputs_for_vllm(message, processor) for message in [messages]]
     engine_args = EngineArgs(
+        model=checkpoint_path,
         max_model_len=-1,
         max_num_seqs=5,
         mm_processor_kwargs={
@@ -99,12 +100,11 @@ if __name__ == '__main__':
     engine_args = asdict(engine_args)
 
     llm = LLM(
-        model=checkpoint_path,
+        **engine_args,
         trust_remote_code=True,
         gpu_memory_utilization=0.70,
         enforce_eager=False,
-        tensor_parallel_size=torch.cuda.device_count(),
-        **engine_args
+        tensor_parallel_size=torch.cuda.device_count()
     )
 
     sampling_params = SamplingParams(
