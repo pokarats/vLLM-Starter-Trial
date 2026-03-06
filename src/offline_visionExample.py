@@ -10,13 +10,17 @@ if model_path.exists():
     print(f"Loading from {model_path}")
     llm = LLM(
         model=str(model_path),
+        max_model_len=4096,
         max_num_seqs=5,
+        limit_mm_per_prompt={'image': 1, 'video': 0, 'audio': 0, 'vision_chunk': 0}
     )
 else:
     print(f"Need to download model {model_name} to cache")
     llm = LLM(
         model=model_name,
-        max_num_seqs=5
+        max_model_len=4096,
+        max_num_seqs=5,
+        limit_mm_per_prompt={'image': 1, 'video': 0, 'audio': 0, 'vision_chunk': 0}
     )
 stop_token_ids = None
 
