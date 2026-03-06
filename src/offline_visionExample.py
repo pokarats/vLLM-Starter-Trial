@@ -9,7 +9,7 @@ model_path = Path("/ds/models/llms/Qwen/Qwen3-VL-30B-A3B-Instruct")
 if model_path.exists():
     print(f"Loading from {model_path}")
     llm = LLM(
-        model=model_path,
+        model=str(model_path),
         max_num_seqs=5,
     )
 else:
@@ -42,3 +42,6 @@ outputs = llm.generate(inputs, sampling_params=sampling_params)
 for o in outputs:
     generated_text = o.outputs[0].text
     print(generated_text)
+
+print("manual shutdown...", flush=True)
+llm.llm_engine.engine_core.shutdown() # fixing EngineCore died unexpectedly when not in Main()
