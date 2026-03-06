@@ -1,13 +1,21 @@
 import PIL
 from vllm import LLM, SamplingParams
+from pathlib import Path
 
 data = PIL.Image.open("data/example.jpg")
-model_name = "Qwen/Qwen2-VL-7B-Instruct"
+model_name = "Qwen/Qwen3-VL-30B-A3B-Instruct"
+model_path = Path("/ds/models/llms/Qwen/Qwen3-VL-30B-A3B-Instruct")
 
-llm = LLM(
-    model=model_name,
-    max_num_seqs=5,
-)
+if model_path.exists():
+    llm = LLM(
+        model=model_path,
+        max_num_seqs=5,
+    )
+else:
+    llm = LLM(
+        model=model_name,
+        max_num_seqs=5
+    )
 stop_token_ids = None
 
 question = "Describe the image"
