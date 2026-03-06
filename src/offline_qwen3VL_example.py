@@ -94,17 +94,17 @@ if __name__ == '__main__':
             "fps": [],
         },
         limit_mm_per_prompt={'image': 1, 'video': 0, 'audio': 0, 'vision_chunk': 0}, # 0 out not needed modality
-        seed=0
+        seed=0,
+        trust_remote_code=True,
+        gpu_memory_utilization=0.70,
+        enforce_eager=False,
+        tensor_parallel_size=torch.cuda.device_count()
     )
 
     engine_args = asdict(engine_args)
 
     llm = LLM(
-        **engine_args,
-        trust_remote_code=True,
-        gpu_memory_utilization=0.70,
-        enforce_eager=False,
-        tensor_parallel_size=torch.cuda.device_count()
+        **engine_args
     )
 
     sampling_params = SamplingParams(
