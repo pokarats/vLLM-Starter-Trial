@@ -7,11 +7,13 @@ model_name = "Qwen/Qwen3-VL-30B-A3B-Instruct"
 model_path = Path("/ds/models/llms/Qwen/Qwen3-VL-30B-A3B-Instruct")
 
 if model_path.exists():
+    print(f"Loading from {model_path}")
     llm = LLM(
         model=model_path,
         max_num_seqs=5,
     )
 else:
+    print(f"Need to download model {model_name} to cache")
     llm = LLM(
         model=model_name,
         max_num_seqs=5
