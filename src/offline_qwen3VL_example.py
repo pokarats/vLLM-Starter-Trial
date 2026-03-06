@@ -85,7 +85,7 @@ if __name__ == '__main__':
     processor = AutoProcessor.from_pretrained(checkpoint_path)
     inputs = [prepare_inputs_for_vllm(message, processor) for message in [messages]]
     engine_args = EngineArgs(
-        max_model_len=4096,
+        max_model_len=-1,
         max_num_seqs=5,
         mm_processor_kwargs={
             "min_pixels": 28 * 28,
