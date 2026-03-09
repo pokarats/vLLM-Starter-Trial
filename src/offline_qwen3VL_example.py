@@ -34,6 +34,7 @@ def prepare_inputs_for_vllm(messages, processor):
     mm_data = {}
     if image_inputs is not None:
         mm_data['image'] = image_inputs
+        print(f"image inputs: {mm_data['image']}")
     if video_inputs is not None:
         mm_data['video'] = video_inputs
 
@@ -93,7 +94,7 @@ if __name__ == '__main__':
             "max_pixels": 1280 * 28 * 28,
             "fps": [],
         },
-        limit_mm_per_prompt={'image': 1, 'video': 0, 'audio': 0, 'vision_chunk': 0}, # 0 out not needed modality
+        limit_mm_per_prompt={'image': len(messages), 'video': 0, 'audio': 0, 'vision_chunk': 0}, # 0 out not needed modality
         seed=0,
         trust_remote_code=True,
         gpu_memory_utilization=0.70,
@@ -118,7 +119,7 @@ if __name__ == '__main__':
     for i, input_ in enumerate(inputs):
         print()
         print('=' * 40)
-        print(f"Inputs[{i}]: {input_['prompt']=!r}")
+        print(f"Inputs[{i}]: {input_['prompt']=!r}\nInput_ image{input_['multi_modal_data']}")
         print('\n' + '>' * 40)
 
         all_outputs.append(llm.generate(input_, sampling_params=sampling_params))
@@ -127,3 +128,6 @@ if __name__ == '__main__':
         print()
         print('=' * 40)
         print(f"Generated response: {generated_text!r}")
+
+    print("manual shutdown...", flush=True)
+    llm.llm_engine.engine_core.shutdown() # fixing EngineCore died unexpectedly when not in Main()
