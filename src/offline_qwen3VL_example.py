@@ -66,18 +66,18 @@ if __name__ == '__main__':
 
     Format: Return ONLY a JSON list of objects with 'question' and 'answer' keys.
     """
-
+    image_paths = ["data/Chapter17_image_1.png", "data/Chapter17_image_1.png"]
     messages = [
         {
             "role": "user",
             "content": [
               {
                   "type": "image",
-                  "image": "data/Chapter17_image_1.png",
+                  "image": img_path,
               },
               {"type": "text", "text": message_text_prompt},
             ],
-        }
+        } for img_path in image_paths
     ]
 
     # TODO: change to your own checkpoint path
