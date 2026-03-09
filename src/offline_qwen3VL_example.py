@@ -126,11 +126,13 @@ if __name__ == '__main__':
     for i, some_outputs in enumerate(all_outputs):
         #for j, o in(output):
         #    generated_text = o.outputs[0].text
-        print()
-        print('=' * 40)
         #print(f"Generated response from image {i}: {some_outputs}: \ntype{type(some_outputs)}")
         for j, outputs_ in enumerate(some_outputs):
-            print(f"item {j}: {outputs_}: \ntype{type(outputs_)}")
+            generated_text = outputs_.outputs[0].text
+            print()
+            print('=' * 40)
+            print(f"Generated text from output {i}_{j}: {generated_text}")
+            #print(f"item {j}: {outputs_.outputs[0].text}: \ntype{type(outputs_)}")
 
 
     print("manual shutdown...", flush=True)
