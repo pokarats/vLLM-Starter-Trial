@@ -114,14 +114,15 @@ if __name__ == '__main__':
         stop_token_ids=[],
     )
 
+    all_outputs = []
     for i, input_ in enumerate(inputs):
         print()
         print('=' * 40)
         print(f"Inputs[{i}]: {input_['prompt']=!r}")
-    print('\n' + '>' * 40)
+        print('\n' + '>' * 40)
 
-    outputs = llm.generate(inputs, sampling_params=sampling_params)
-    for i, output in enumerate(outputs):
+        all_outputs.append(llm.generate(input_, sampling_params=sampling_params))
+    for j, output in enumerate(all_outputs):
         generated_text = output.outputs[0].text
         print()
         print('=' * 40)
