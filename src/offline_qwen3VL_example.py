@@ -124,11 +124,11 @@ if __name__ == '__main__':
 
         all_outputs.append(llm.generate(input_, sampling_params=sampling_params))
     for i, output in enumerate(all_outputs):
-        for j, o in(output):
-            generated_text = o.outputs[0].text
-            print()
-            print('=' * 40)
-            print(f"Generated response from image {i}: {generated_text!r}")
+        #for j, o in(output):
+        #    generated_text = o.outputs[0].text
+        print()
+        print('=' * 40)
+        print(f"Generated response from image {i}: {output}: \ntype{type(output)}")
 
     print("manual shutdown...", flush=True)
     llm.llm_engine.engine_core.shutdown() # fixing EngineCore died unexpectedly when not in Main()
