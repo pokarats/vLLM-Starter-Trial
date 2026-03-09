@@ -115,23 +115,23 @@ if __name__ == '__main__':
         stop_token_ids=[],
     )
 
-    all_outputs = []
+    #all_outputs = []
     for i, input_ in enumerate(inputs):
         print()
         print('=' * 40)
         print(f"Inputs[{i}]: {input_['prompt']=!r}\nInput_ image{input_['multi_modal_data']}")
         print('\n' + '>' * 40)
 
-        all_outputs.append(llm.generate(input_, sampling_params=sampling_params))
+    all_outputs = llm.generate(inputs, sampling_params=sampling_params)
     for i, some_outputs in enumerate(all_outputs):
         #for j, o in(output):
-        #    generated_text = o.outputs[0].text
+        generated_text = some_outputs.outputs[0].text
         #print(f"Generated response from image {i}: {some_outputs}: \ntype{type(some_outputs)}")
-        for j, outputs_ in enumerate(some_outputs):
-            generated_text = outputs_.outputs[0].text
-            print()
-            print('=' * 40)
-            print(f"Generated text from output {i}_{j}: {generated_text}")
+        #for j, outputs_ in enumerate(some_outputs):
+            #generated_text = outputs_.outputs[0].text
+        print()
+        print('=' * 40)
+        print(f"Generated text from output {i}_: {generated_text}")
             #print(f"item {j}: {outputs_.outputs[0].text}: \ntype{type(outputs_)}")
 
 
